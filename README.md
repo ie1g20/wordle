@@ -108,3 +108,5 @@ docker-compose down
 - **Backend** reads/writes to **Firebase**.
 - **Backend** uses **Keycloak** for authentication.
 
+## 7. Notes
+- In the Dockerfile you need to replace password and usernames with enviromental variables for security reason.
