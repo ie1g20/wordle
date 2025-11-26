@@ -33,12 +33,13 @@ const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
       if (tile) {
         tile.classList.remove('correct', 'present', 'absent', 'flip');
 
-        // Wrap totalDelay in a local constant to avoid unsafe reference
-        const delay = totalDelay;
-        setTimeout(() => {
-          tile.classList.add(color);
-          tile.classList.add('flip');
-        }, delay);
+        // Immediately create a closure with the current delay
+        ((tileCopy, colorCopy, delayCopy) => {
+          setTimeout(() => {
+            tileCopy.classList.add(colorCopy);
+            tileCopy.classList.add('flip');
+          }, delayCopy);
+        })(tile, color, totalDelay);
       }
 
       totalDelay += 250;
@@ -46,11 +47,9 @@ const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
   }
 
   if (callback) {
-    const finalDelay = totalDelay + 50;
-    setTimeout(callback, finalDelay);
+    setTimeout(callback, totalDelay + 50);
   }
 };
-
 
 
   useEffect(() => {
