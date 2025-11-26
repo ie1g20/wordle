@@ -26,29 +26,31 @@ function Wordle({ gameData, onBack }) {
   const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
     let totalDelay = 0;
 
-    const scheduleTileFlip = (tile, color, delay) => {
+    // scheduleTileFlip is now completely independent of loop variables
+    const scheduleTileFlip = (r, c, color, delay) => {
       setTimeout(() => {
-        tile.classList.add(color);
-        tile.classList.add('flip');
+        const tile = document.getElementById(`tile-${r}-${c}`);
+        if (tile) {
+          tile.classList.remove('correct', 'present', 'absent', 'flip');
+          tile.classList.add(color);
+          tile.classList.add('flip');
+        }
       }, delay);
     };
 
-    feedbackMatrix.slice(startRow, endRow).forEach((row, rOffset) => {
-      row.forEach((color, cIdx) => {
-        const r = startRow + rOffset; // capture row index locally
-        const tile = document.getElementById(`tile-${r}-${cIdx}`);
-        if (tile) {
-          tile.classList.remove('correct', 'present', 'absent', 'flip');
-          scheduleTileFlip(tile, color, totalDelay);
-        }
+    for (let r = startRow; r < endRow; r++) {
+      for (let c = 0; c < feedbackMatrix[r].length; c++) {
+        const color = feedbackMatrix[r][c];
+        scheduleTileFlip(r, c, color, totalDelay);
         totalDelay += 250;
-      });
-    });
+      }
+    }
 
     if (callback) {
       setTimeout(callback, totalDelay + 50);
     }
   };
+
 
   useEffect(() => {
     const initGame = () => {
