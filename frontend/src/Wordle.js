@@ -23,34 +23,32 @@ function Wordle({ gameData, onBack }) {
     GRAY: 'absent'
   };
 
-const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
-  let totalDelay = 0;
+  const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
+    let totalDelay = 0;
 
-  const scheduleTileFlip = (tile, color, delay) => {
-    setTimeout(() => {
-      tile.classList.add(color);
-      tile.classList.add('flip');
-    }, delay);
-  };
+    const scheduleTileFlip = (tile, color, delay) => {
+      setTimeout(() => {
+        tile.classList.add(color);
+        tile.classList.add('flip');
+      }, delay);
+    };
 
-  for (let r = startRow; r < endRow; r++) {
-    const row = feedbackMatrix[r];
-    row.forEach((color, cIdx) => {
-      const tile = document.getElementById(`tile-${r}-${cIdx}`);
-      if (tile) {
-        tile.classList.remove('correct', 'present', 'absent', 'flip');
-        scheduleTileFlip(tile, color, totalDelay);
-      }
-      totalDelay += 250;
+    feedbackMatrix.slice(startRow, endRow).forEach((row, rOffset) => {
+      row.forEach((color, cIdx) => {
+        const r = startRow + rOffset; // capture row index locally
+        const tile = document.getElementById(`tile-${r}-${cIdx}`);
+        if (tile) {
+          tile.classList.remove('correct', 'present', 'absent', 'flip');
+          scheduleTileFlip(tile, color, totalDelay);
+        }
+        totalDelay += 250;
+      });
     });
-  }
 
-  if (callback) {
-    setTimeout(callback, totalDelay + 50);
-  }
-};
-
-
+    if (callback) {
+      setTimeout(callback, totalDelay + 50);
+    }
+  };
 
   useEffect(() => {
     const initGame = () => {
