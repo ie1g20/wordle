@@ -33,7 +33,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - /wordle/keycloak-themes:/opt/keycloak/themes
+      - /Users/ivanentchev/Developer/wordle/keycloak-themes:/opt/keycloak/themes
     networks:
       - app_net
 
