@@ -26,7 +26,6 @@ function Wordle({ gameData, onBack }) {
   const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
     let totalDelay = 0;
 
-    // scheduleTileFlip is now completely independent of loop variables
     const scheduleTileFlip = (r, c, color, delay) => {
       setTimeout(() => {
         const tile = document.getElementById(`tile-${r}-${c}`);
@@ -148,20 +147,19 @@ function Wordle({ gameData, onBack }) {
       data.feedback.forEach((fb, idx) => {
         updatedTileFeedback[currentRow][idx] = colorMap[fb.toUpperCase()] || 'absent';
       });
-      setTileFeedback(updatedTileFeedback);
 
-      animateRows(currentRow, currentRow + 1, updatedTileFeedback);
+      animateRows(currentRow, currentRow + 1, updatedTileFeedback, () => {
+        setTileFeedback(updatedTileFeedback);
 
-      const newKeyboard = { ...keyboardState };
-      board[currentRow].forEach((letter, idx) => {
-        const color = colorMap[data.feedback[idx].toUpperCase()] || 'absent';
-        if (color === 'correct') newKeyboard[letter] = 'correct';
-        else if (color === 'present' && newKeyboard[letter] !== 'correct') newKeyboard[letter] = 'present';
-        else if (color === 'absent' && !newKeyboard[letter]) newKeyboard[letter] = 'absent';
-      });
-      setKeyboardState(newKeyboard);
+        const newKeyboard = { ...keyboardState };
+        board[currentRow].forEach((letter, idx) => {
+          const color = colorMap[data.feedback[idx].toUpperCase()] || 'absent';
+          if (color === 'correct') newKeyboard[letter] = 'correct';
+          else if (color === 'present' && newKeyboard[letter] !== 'correct') newKeyboard[letter] = 'present';
+          else if (color === 'absent' && !newKeyboard[letter]) newKeyboard[letter] = 'absent';
+        });
+        setKeyboardState(newKeyboard);
 
-      setTimeout(() => {
         if (data.status === 'WON') {
           setGameOver(true);
           showMessage('Congratulations! You won!', 'success');
@@ -172,7 +170,7 @@ function Wordle({ gameData, onBack }) {
           setCurrentRow(prev => prev + 1);
           setCurrentTile(0);
         }
-      }, COLS * 250 + 50);
+      });
 
     } catch (err) {
       console.error(err);
