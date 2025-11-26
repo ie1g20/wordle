@@ -23,8 +23,9 @@ function Wordle({ gameData, onBack }) {
     GRAY: 'absent'
   };
 
-  const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
+const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
   let totalDelay = 0;
+
   for (let r = startRow; r < endRow; r++) {
     const row = feedbackMatrix[r];
     row.forEach((color, cIdx) => {
@@ -32,20 +33,24 @@ function Wordle({ gameData, onBack }) {
       if (tile) {
         tile.classList.remove('correct', 'present', 'absent', 'flip');
 
-        // Wrap in an IIFE to capture tile and color
-        ((tile, color) => {
-          setTimeout(() => {
-            tile.classList.add(color);
-            tile.classList.add('flip');
-          }, totalDelay);
-        })(tile, color);
+        // Wrap totalDelay in a local constant to avoid unsafe reference
+        const delay = totalDelay;
+        setTimeout(() => {
+          tile.classList.add(color);
+          tile.classList.add('flip');
+        }, delay);
       }
+
       totalDelay += 250;
     });
   }
 
-  if (callback) setTimeout(callback, totalDelay + 50);
+  if (callback) {
+    const finalDelay = totalDelay + 50;
+    setTimeout(callback, finalDelay);
+  }
 };
+
 
 
   useEffect(() => {
