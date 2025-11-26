@@ -109,4 +109,4 @@ docker-compose down
 - **Backend** uses **Keycloak** for authentication.
 
 ## 7. Notes
-- In the Dockerfile you need to replace password and usernames with enviromental variables for security reason.
+- In the docker-compose file you need to replace password and usernames with enviromental variables for security reason.
