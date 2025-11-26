@@ -1,6 +1,6 @@
 {
   "realm": "wordle-realm",
-  "auth-server-url": "http://localhost:8080/",
+  "auth-server-url": "http://keycloak-web:8080/",
   "ssl-required": "external",
   "resource": "wordle-app",
   "public-client": true,

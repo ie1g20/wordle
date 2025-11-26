@@ -1,5 +1,5 @@
 // src/Api.js
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:9090/api/wordle';
+const API_BASE_URL = process.env.REACT_APP_API_URL || '/api/wordle';
 
 export const api = {
   // startGame(playerId) -> POST /play?playerId=...

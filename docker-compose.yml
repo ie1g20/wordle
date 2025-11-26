@@ -1,5 +1,6 @@
-services:
+version: "3.9"
 
+services:
   keycloak-db:
     image: postgres:15
     container_name: keycloak_db
@@ -11,7 +12,7 @@ services:
     volumes:
       - keycloak_data:/var/lib/postgresql/data
     networks:
-      - keycloak_net
+      - app_net
 
   keycloak-web:
     image: quay.io/keycloak/keycloak:26.1
@@ -33,13 +34,42 @@ services:
       - keycloak-db
     ports:
       - "8080:8080"
+    volumes:
+      - ./keycloak-themes:/opt/keycloak/themes
     networks:
-      - keycloak_net
+      - app_net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    ports:
+      - "9090:9090"
+    networks:
+      - app_net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Remove or comment out REACT_APP_API_URL
+        REACT_APP_KEYCLOAK_URL: http://localhost:8080
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+      - keycloak-web
+    networks:
+      - app_net
 
 volumes:
   keycloak_data:
-  keycloak_themes:
 
 networks:
-  keycloak_net:
+  app_net:
     driver: bridge
