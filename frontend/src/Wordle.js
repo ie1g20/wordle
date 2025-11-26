@@ -26,22 +26,21 @@ function Wordle({ gameData, onBack }) {
 const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
   let totalDelay = 0;
 
+  const scheduleTileFlip = (tile, color, delay) => {
+    setTimeout(() => {
+      tile.classList.add(color);
+      tile.classList.add('flip');
+    }, delay);
+  };
+
   for (let r = startRow; r < endRow; r++) {
     const row = feedbackMatrix[r];
     row.forEach((color, cIdx) => {
       const tile = document.getElementById(`tile-${r}-${cIdx}`);
       if (tile) {
         tile.classList.remove('correct', 'present', 'absent', 'flip');
-
-        // Immediately create a closure with the current delay
-        ((tileCopy, colorCopy, delayCopy) => {
-          setTimeout(() => {
-            tileCopy.classList.add(colorCopy);
-            tileCopy.classList.add('flip');
-          }, delayCopy);
-        })(tile, color, totalDelay);
+        scheduleTileFlip(tile, color, totalDelay);
       }
-
       totalDelay += 250;
     });
   }
@@ -50,6 +49,7 @@ const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
     setTimeout(callback, totalDelay + 50);
   }
 };
+
 
 
   useEffect(() => {
