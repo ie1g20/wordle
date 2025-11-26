@@ -1,0 +1,99 @@
+########################################
+# OS & Editor Files
+########################################
+.DS_Store
+.vscode/
+.idea/
+*.log
+*.tmp
+*.swp
+*.bak
+
+########################################
+# Secrets / Environment Files
+########################################
+.env
+.env.*
+*.secret
+*.key
+*.pem
+*.p12
+*.crt
+
+########################################
+# React Frontend
+########################################
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.eslintcache
+frontend/.parcel-cache
+frontend/.vite/
+frontend/.turbo/
+frontend/.next/
+frontend/package-lock.json
+frontend/yarn.lock
+frontend/pnpm-lock.yaml
+frontend/.env
+frontend/.env.*
+
+########################################
+# Java Backend (Maven / Gradle)
+########################################
+
+# Maven
+backend/target/
+backend/pom.xml.tag
+backend/pom.xml.releaseBackup
+backend/pom.xml.versionsBackup
+backend/pom.xml.next
+backend/release.properties
+backend/dependency-reduced-pom.xml
+backend/buildNumber.properties
+backend/.mvn/timing.properties
+
+# Gradle (if used)
+backend/.gradle/
+backend/build/
+backend/out/
+
+# IntelliJ/Java
+backend/*.iml
+backend/*.ipr
+backend/*.iws
+
+# Java compiled files
+backend/*.class
+backend/*.jar
+backend/*.war
+backend/*.ear
+
+# Backend env
+backend/.env
+backend/.env.*
+
+########################################
+# Docker
+########################################
+
+# Docker environment overrides
+docker-compose.override.yml
+docker-compose.local.yml
+docker-compose.dev.yml
+
+# Docker runtime files
+docker-data/
+docker-volume/
+docker-volumes/
+docker/volumes/
+.docker/
+*.pid
+
+# Docker build cache outputs
+**/docker-cache/
+**/.docker-cache/
+
+# Ignore build artifacts if dockerizing app
+**/tmp/
+**/cache/
+**/.cache/

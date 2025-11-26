@@ -1,0 +1,12 @@
+<html>
+<body>
+    <script>
+        //debugger
+        console.log('postMessage')
+        console.log('location.href',location.href)
+        console.log('location.origin',location.origin)
+        parent.postMessage(location.href, location.origin)
+    </script>
+    <div>SILENT CHECK SSO</div>
+</body>
+</html>

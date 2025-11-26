@@ -1,0 +1,117 @@
+/* Reset body padding and margin */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #121213;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Universal box-sizing */
+* {
+    box-sizing: border-box;
+}
+
+/* Container styles */
+.login-container {
+    background-color: #1a1a1b;
+    padding: 50px 40px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Wordle header instead of logo */
+.login-container h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 0.3rem;
+    margin: 0;
+    color: white;
+}
+
+/* Input fields styling */
+/* Input fields styling */
+.login-container input[type="email"],
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    font-size: 16px;
+    background-color: #121213;
+    color: white;
+}
+
+
+/* Button styling */
+.login-container input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #538d4e;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.2s;
+}
+
+.login-container input[type="submit"]:hover {
+    background-color: #6aaa64;
+}
+
+/* Forgot password link */
+.login-container .forgot-password {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #538d4e;
+    text-decoration: none;
+}
+
+.login-container .forgot-password:hover {
+    color: #6aaa64;
+}
+
+/* Optional: handle error messages */
+.alert {
+    color: #d8000c;
+    background-color: #ffbaba;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+}
+
+.register-link {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #538d4e;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    color: #6aaa64;
+}

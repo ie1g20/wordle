@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.welcome-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  text-align: center;
+}
+
+.welcome-screen h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  letter-spacing: 0.3rem;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 0;
+}
+
+.play-button {
+  background-color: #538d4e;
+  color: white;
+  border: none;
+  padding: 15px 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.play-button:hover {
+  background-color: #6aaa64;
+}
+
+.play-button:disabled {
+  background-color: #3a3a3c;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
