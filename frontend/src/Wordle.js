@@ -24,24 +24,29 @@ function Wordle({ gameData, onBack }) {
   };
 
   const animateRows = (startRow, endRow, feedbackMatrix, callback) => {
-    let totalDelay = 0;
-    for (let r = startRow; r < endRow; r++) {
-      const row = feedbackMatrix[r];
-      row.forEach((color, cIdx) => {
-        const tile = document.getElementById(`tile-${r}-${cIdx}`);
-        if (tile) {
-          tile.classList.remove('correct', 'present', 'absent', 'flip');
+  let totalDelay = 0;
+  for (let r = startRow; r < endRow; r++) {
+    const row = feedbackMatrix[r];
+    row.forEach((color, cIdx) => {
+      const tile = document.getElementById(`tile-${r}-${cIdx}`);
+      if (tile) {
+        tile.classList.remove('correct', 'present', 'absent', 'flip');
+
+        // Wrap in an IIFE to capture tile and color
+        ((tile, color) => {
           setTimeout(() => {
             tile.classList.add(color);
             tile.classList.add('flip');
           }, totalDelay);
-        }
-        totalDelay += 250;
-      });
-    }
+        })(tile, color);
+      }
+      totalDelay += 250;
+    });
+  }
 
-    if (callback) setTimeout(callback, totalDelay + 50);
-  };
+  if (callback) setTimeout(callback, totalDelay + 50);
+};
+
 
   useEffect(() => {
     const initGame = () => {
